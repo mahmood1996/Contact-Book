@@ -50,6 +50,12 @@ DefaultContactBookMedia class >> forStringContent [
 	
 ]
 
+{ #category : #formatting }
+DefaultContactBookMedia >> content [
+	
+	^ formattedContentBlock value: contacts
+]
+
 { #category : #initialization }
 DefaultContactBookMedia >> initialize [ 
 
