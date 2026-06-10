@@ -5,8 +5,8 @@ It takes `name`, and `email` and can print itself to a `ContactMedia`
 
 Public API and Key Messages
 
-- withName: 
-- withEmail: 
+- updateName: 
+- updateEmail: 
 - printedTo: 
 
 Here is a quick example: 
