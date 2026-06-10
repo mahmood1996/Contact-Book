@@ -21,6 +21,8 @@ ContactIntegrationTest >> setUp [
 { #category : #running }
 ContactIntegrationTest >> tearDown [ 
 
+	Contact removeAll.
+
 	VORepository setRepository: prevRepository.
 	
 	super tearDown
