@@ -27,6 +27,24 @@ ContactTest >> tearDown [
 ]
 
 { #category : #tests }
+ContactTest >> testContactEmailMatching [
+	| contact |
+	
+	contact := Contact withName: 'Abdelrazek' andEmail: 'a@b.c'.
+	
+	self assert: ( contact emailMatching: 'b.c' )
+]
+
+{ #category : #tests }
+ContactTest >> testContactNameMatching [
+	| contact |
+	
+	contact := Contact withName: 'Abdelrazek' andEmail: 'a@b.c'.
+	
+	self assert: ( contact nameMatching: 'Abd' )
+]
+
+{ #category : #tests }
 ContactTest >> testPrintingContact [
 	| contact media |
 	

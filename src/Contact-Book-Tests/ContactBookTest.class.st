@@ -3,7 +3,6 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'book',
-		'media',
 		'contact',
 		'prevRepository'
 	],
@@ -19,8 +18,6 @@ ContactBookTest >> setUp [
 	VORepository setRepository: VOMemoryRepository new.
 	
 	book := ContactBook new.
-	
-	media := DefaultContactBookMedia forStringContent.
 	
 	contact := Contact withName: 'Abdelrazek' andEmail: 'a@b.c'
 	

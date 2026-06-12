@@ -54,7 +54,7 @@ ContactBook >> addContact: aContact [
 { #category : #accessing }
 ContactBook >> allContacts [
 	"Returns all saved contacts"
-	^ contacts asArray
+	^ contacts copy asArray 
 ]
 
 { #category : #initialization }

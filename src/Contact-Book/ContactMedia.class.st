@@ -20,7 +20,7 @@ Here is a quick example:
 "
 Class {
 	#name : #ContactMedia,
-	#superclass : #Media,
+	#superclass : #Object,
 	#category : #'Contact-Book'
 }
 

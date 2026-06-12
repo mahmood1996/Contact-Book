@@ -46,6 +46,13 @@ Contact class >> withName: aName andEmail: anEmail [
 		yourself
 ]
 
+{ #category : #'testing - matching' }
+Contact >> emailMatching: aString [ 
+	"Check for contact email is matching `aString`"
+	
+	^ email includesSubstring: aString
+]
+
 { #category : #initialization }
 Contact >> initialize [ 
 	super initialize.
@@ -53,6 +60,13 @@ Contact >> initialize [
 	self updateName: ''.
 	
 	self updateEmail: ''
+]
+
+{ #category : #'testing - matching' }
+Contact >> nameMatching: aString [ 
+	"Check for contact name is matching `aString`"
+	
+	^ name includesSubstring: aString
 ]
 
 { #category : #printing }
