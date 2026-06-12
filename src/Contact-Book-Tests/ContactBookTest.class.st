@@ -40,13 +40,13 @@ ContactBookTest >> testAddingContactToBook [
 	
 	book addContact: contact.
 
-	self assert: (book printedTo: media) content equals: 'contacts: [ contact: < name: Abdelrazek, email: a@b.c > ]'
+	self assert: ( book allContacts includes: contact )
 ]
 
 { #category : #tests }
-ContactBookTest >> testPrintingEmptyBook [
+ContactBookTest >> testNoContactsForEmptyBook [
 
-	self assert: (book printedTo: media) content equals: 'contacts: []'
+	self assert: book allContacts isEmpty
 ]
 
 { #category : #tests }
@@ -56,5 +56,5 @@ ContactBookTest >> testRemovingContactFromBook [
 		addContact: contact;
 		removeContact: contact.
 
-	self assert: (book printedTo: media) content equals: 'contacts: []'
+	self deny: (book allContacts includes: contact)
 ]

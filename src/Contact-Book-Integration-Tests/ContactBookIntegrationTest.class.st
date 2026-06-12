@@ -30,7 +30,7 @@ ContactBookIntegrationTest >> setUp [
 	
 	book := ContactBook current.
 	
-	media := DefaultContactBookMedia forStringContent.
+	media := DefaultContactMedia forStringContent.
 	
 	contact := Contact withName: 'Abdelrazek' andEmail: 'a@b.c'
 ]
@@ -53,8 +53,10 @@ ContactBookIntegrationTest >> testAddingContactToBook [
 	VORepository current flush.
 
 	self 
-		assert: (ContactBook selectAll first printedTo: media) content 
-		equals: 'contacts: [ contact: < name: Abdelrazek, email: a@b.c > ]'
+		assert: ( ( ContactBook current allContacts collect: [ 
+			:aContact | 
+			( aContact printedTo: media ) content ] ) joinUsing: ', ' )
+		equals: 'contact: < name: Abdelrazek, email: a@b.c >'
 ]
 
 { #category : #tests }
@@ -67,6 +69,8 @@ ContactBookIntegrationTest >> testRemovingContactFromBook [
 	VORepository current flush.
 
 	self 
-		assert: (ContactBook current printedTo: media) content 
-		equals: 'contacts: []'
+		assert: ( ( ContactBook current allContacts collect: [ 
+			:aContact | 
+			( aContact printedTo: media ) content ] ) joinUsing: ', ' )
+		equals: ''
 ]

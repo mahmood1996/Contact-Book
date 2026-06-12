@@ -51,16 +51,17 @@ ContactBook >> addContact: aContact [
 	self save
 ]
 
+{ #category : #accessing }
+ContactBook >> allContacts [
+	"Returns all saved contacts"
+	^ contacts asArray
+]
+
 { #category : #initialization }
 ContactBook >> initialize [
 	super initialize.
 	
 	contacts := OrderedCollection new
-]
-
-{ #category : #printing }
-ContactBook >> printedTo: aContactBookMedia [ 
-	^ aContactBookMedia withContacts: contacts
 ]
 
 { #category : #removing }
