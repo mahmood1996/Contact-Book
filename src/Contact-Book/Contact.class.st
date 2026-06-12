@@ -7,6 +7,8 @@ Public API and Key Messages
 
 - updateName: 
 - updateEmail: 
+- nameMatching:
+- emailMatching:
 - printedTo: 
 
 Here is a quick example: 

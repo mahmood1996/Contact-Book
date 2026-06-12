@@ -1,17 +1,17 @@
 "
 `ContactBook` is the model representing a catalog of contacts in the real world.
 
-It can add, remove contact and print itself to a `ContactBookMedia`
+It can add, remove contact and return all contacts
 
 Public API and Key Messages
 
 - addContact: 
 - removeContact: 
-- printedTo: 
+- allContacts 
 
 Here is a quick example: 
 
-` ( ContactBook new addContact: ( Contact withName: 'Abdelrazek' andEmail: 'a@b.c' ); printedTo: DefaultContactBookMedia forStringContent ) content `
+` ContactBook new addContact: ( Contact withName: 'Abdelrazek' andEmail: 'a@b.c' ); allContacts `
 "
 Class {
 	#name : #ContactBook,
