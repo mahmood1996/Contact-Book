@@ -41,7 +41,7 @@ DefaultContactMedia class >> forStringContent [
 	"Creates an instance for formatting content as String".
 	
 	^ self forFormattedContentUsing: [ 
-		:aName :anEmail | 
+		:aName :anEmail :anAvatar | 
 		'contact: < ' , ( { 'name: ' , aName . 'email: ' , anEmail } joinUsing: ', ' ) , ' >' ]
 ]
 
@@ -52,15 +52,25 @@ DefaultContactMedia >> content [
 	^ formattedContentBlock 
 		value: (props at: 'name') 
 		value: (props at: 'email')
+		value: (props at: 'avatar')
 ]
 
 { #category : #initialization }
 DefaultContactMedia >> initialize [ 
 	super initialize.
 	
-	props := { 'name' -> '' . 'email' -> '' } asDictionary.
+	props := { 'name' -> '' . 'email' -> '' . 'avatar' -> '' } asDictionary.
 	
-	formattedContentBlock := [ :name :email |  ]
+	formattedContentBlock := [ :name :email :avatar |  ]
+]
+
+{ #category : #'instance creation' }
+DefaultContactMedia >> withAvatar: anUrl [
+	"Returns new instance with an avatar"
+
+	props at: 'avatar' put: anUrl.
+	
+	^ self copy
 ]
 
 { #category : #'instance creation' }

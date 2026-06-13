@@ -55,6 +55,13 @@ Contact >> emailMatching: aString [
 	^ email includesSubstring: aString
 ]
 
+{ #category : #private }
+Contact >> gravatarUrl [ 
+	"Returns gravatar URL of current contact"
+	^ 'http://www.gravatar.com/avatar/', (MD5 hashMessage: email
+		trimBoth asLowercase) hex, '.jpg'
+]
+
 { #category : #initialization }
 Contact >> initialize [ 
 	super initialize.
@@ -75,7 +82,8 @@ Contact >> nameMatching: aString [
 Contact >> printedTo: aContactMedia [ 
 	"Prints contact data (name and email) to the media"
 	
-	^ (aContactMedia withName: name) withEmail: email
+	^ ( ( aContactMedia withName: name ) withEmail: email ) 
+		withAvatar: self gravatarUrl
 ]
 
 { #category : #updating }

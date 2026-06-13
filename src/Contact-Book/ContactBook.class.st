@@ -22,6 +22,15 @@ Class {
 	#category : #'Contact-Book'
 }
 
+{ #category : #current }
+ContactBook class >> createDefault [
+	"Creates a Contact Book with Default Contacts"
+	^ self new 
+		addContact: ( Contact withName: 'Abdelrazek Ali Awad <3' andEmail: 'a@example.com' ) ;
+		addContact: ( Contact withName: 'Mo`men Abdelrazek Ali <3' andEmail: 'b@example.com' ) ;
+		yourself
+]
+
 { #category : #accessing }
 ContactBook class >> current [
 	^ self selectAll 
