@@ -40,7 +40,10 @@ WAContactBook >> initialize [
 WAContactBook >> renderAddButtonOn: html [
 	html tbsButton
 		beSuccess;
-		callback: [ self call: ( WAContact forCreatingIn: book ) ];
+		callback: [ 
+			self call: ( WAContact forCreatingIn: book ). 
+			searchKeyword := '' 
+		];
 		with: 'Add contact'
 ]
 
