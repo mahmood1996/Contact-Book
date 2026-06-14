@@ -37,6 +37,17 @@ DefaultContactMedia class >> forFormattedContentUsing: contentBlock [
 ]
 
 { #category : #'instance creation' }
+DefaultContactMedia class >> forJSONContent [
+	"Creates an instance for formatting content as String".
+	
+	^ self forFormattedContentUsing: [
+		 :aName :anEmail :anAvatar |
+		 {	'name' -> aName . 
+		 	'email' -> anEmail .
+		 	'avatar' -> anAvatar } asDictionary ]
+]
+
+{ #category : #'instance creation' }
 DefaultContactMedia class >> forStringContent [
 	"Creates an instance for formatting content as String".
 	
@@ -65,10 +76,10 @@ DefaultContactMedia >> initialize [
 ]
 
 { #category : #'instance creation' }
-DefaultContactMedia >> withAvatar: anUrl [
+DefaultContactMedia >> withAvatar: aUrl [
 	"Returns new instance with an avatar"
 
-	props at: 'avatar' put: anUrl.
+	props at: 'avatar' put: aUrl.
 	
 	^ self copy
 ]

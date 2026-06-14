@@ -26,13 +26,9 @@ WAContact class >> forEditing: aContact [
 ]
 
 { #category : #private }
-WAContact >> contactAsDictionary [
-	"Returns contact as a Dictionary"
-	^ ( contact printedTo: ( DefaultContactMedia forFormattedContentUsing: [
-		 :aName :anEmail :anAvatar |
-		 {	'name' -> aName . 
-		 	'email' -> anEmail .
-		 	'avatar' -> anAvatar } asDictionary ] ) ) content
+WAContact >> contactAsJson [
+	"Returns contact as a json"
+	^ ( contact printedTo: ( DefaultContactMedia forJSONContent ) ) content
 ]
 
 { #category : #initialization }
@@ -89,7 +85,7 @@ WAContact >> renderEmailFieldOn: html [
 			tbsFormControl;
 			placeholder: 'your@email.eu';
 			callback: [ :email | contact updateEmail: email address ];
-			value: ( self contactAsDictionary at: 'email' ) ]
+			value: ( self contactAsJson at: 'email' ) ]
 ]
 
 { #category : #private }
@@ -106,7 +102,7 @@ WAContact >> renderFullnameFieldOn: html [
 			tbsFormControl;
 			placeholder: 'fullname';
 			callback: [ :value | contact updateName: value ];
-			value: ( self contactAsDictionary at: 'name' ) ]
+			value: ( self contactAsJson at: 'name' ) ]
 ]
 
 { #category : #private }

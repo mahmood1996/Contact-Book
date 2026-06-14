@@ -2,7 +2,8 @@ Class {
 	#name : #WAContactBook,
 	#superclass : #WAComponent,
 	#instVars : [
-		'book'
+		'book',
+		'searchKeyword'
 	],
 	#category : #'Contact-Book-Components'
 }
@@ -30,7 +31,9 @@ WAContactBook >> initialize [
 
 	super initialize.
 	
-	book := ContactBook current
+	searchKeyword := ''.
+	
+	book := ContactBook current.
 ]
 
 { #category : #private }
@@ -54,15 +57,24 @@ WAContactBook >> renderContact: aContact on: html [
 
 { #category : #private }
 WAContactBook >> renderContactsOn: html [
-		html tbsTable: [
-			html tableHead: [
-				html
-					tableHeading: 'Name';
-					tableHeading: 'Email';
-					tableHeading: 'Photo'
-				]. 
-		
-				book allContacts do: [ :aContact | self renderContact: aContact on: html ] 
+	html tbsTable: [
+		html tableHead: [
+			html
+				tableHeading: 'Name';
+				tableHeading: 'Email';
+				tableHeading: 'Photo'
+			]. 
+			
+			searchKeyword 
+				ifEmpty: [ book allContacts do: [ :aContact | self renderContact: aContact on: html ] ] 
+					
+				ifNotEmpty: [ 
+					book allContacts 
+						select: [ 
+							:contact | 
+							( contact nameMatching: searchKeyword ) or: ( contact emailMatching: searchKeyword ) ]
+						thenDo: [ :aContact | self renderContact: aContact on: html ] 
+				]
 		]
 ]
 
@@ -73,11 +85,18 @@ WAContactBook >> renderContentOn: html [
 		html heading
 			level: 1;
 			with: 'My Contact Book'.
+			
+		self renderSearchFieldOn: html.
 		
-		html tbsForm: [
-			self renderContactsOn: html.
-			self renderAddButtonOn: html
-		].
+		html div 
+            id: 'contact-list';
+            with: [ 
+                "3. The form now ONLY wraps the elements that actually need submitting"
+                html tbsForm: [
+                    self renderContactsOn: html.
+                    self renderAddButtonOn: html 
+                ] 
+            ].
 	]
 ]
 
@@ -95,6 +114,21 @@ WAContactBook >> renderRemoveButtonForContact: aContact on: html [
 		beDanger;
 		callback: [ book removeContact: aContact ];
 		with: 'Remove'
+]
+
+{ #category : #private }
+WAContactBook >> renderSearchFieldOn: html [
+	"--- Live Search Field ---"
+    html div class: 'search-box'; with: [
+        html textInput
+            id: 'search-input';
+            placeholder: 'Search by name or phone...';
+            value: searchKeyword;
+            onKeyUp: (html jQuery ajax
+                callback: [ :val | searchKeyword := val ]
+                    value: (html jQuery this value);
+                onSuccess: ((html jQuery id: 'contact-list') load
+                    html: [:r | self renderContactsOn: r]))].
 ]
 
 { #category : #updating }

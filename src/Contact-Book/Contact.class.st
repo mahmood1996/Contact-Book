@@ -52,7 +52,7 @@ Contact class >> withName: aName andEmail: anEmail [
 Contact >> emailMatching: aString [ 
 	"Check for contact email is matching `aString`"
 	
-	^ email includesSubstring: aString
+	^ email includesSubstring: aString caseSensitive: false
 ]
 
 { #category : #private }
@@ -75,7 +75,7 @@ Contact >> initialize [
 Contact >> nameMatching: aString [ 
 	"Check for contact name is matching `aString`"
 	
-	^ name includesSubstring: aString
+	^ name includesSubstring: aString caseSensitive: false
 ]
 
 { #category : #printing }

@@ -33,7 +33,7 @@ ContactMedia >> content [
 ]
 
 { #category : #'instance creation' }
-ContactMedia >> withAvatar: anUrl [
+ContactMedia >> withAvatar: aUrl [
 	"Returns new instance with a avatar url"
 
 	self subclassResponsibility.
