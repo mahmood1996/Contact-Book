@@ -57,12 +57,13 @@ WAContactBook >> renderContact: aContact on: html [
 
 { #category : #private }
 WAContactBook >> renderContactsOn: html [
-	html tbsTable: [
-		html tableHead: [
-			html
-				tableHeading: 'Name';
-				tableHeading: 'Email';
-				tableHeading: 'Photo'
+	html tbsForm: [ 
+		html tbsTable: [
+			html tableHead: [
+				html
+					tableHeading: 'Name';
+					tableHeading: 'Email';
+					tableHeading: 'Photo'
 			]. 
 			
 			searchKeyword 
@@ -75,6 +76,7 @@ WAContactBook >> renderContactsOn: html [
 							( contact nameMatching: searchKeyword ) or: ( contact emailMatching: searchKeyword ) ]
 						thenDo: [ :aContact | self renderContact: aContact on: html ] 
 				]
+			]
 		]
 ]
 
@@ -88,15 +90,15 @@ WAContactBook >> renderContentOn: html [
 			
 		self renderSearchFieldOn: html.
 		
+		html break.
+		
 		html div 
             id: 'contact-list';
-            with: [ 
-                "3. The form now ONLY wraps the elements that actually need submitting"
-                html tbsForm: [
-                    self renderContactsOn: html.
-                    self renderAddButtonOn: html 
-                ] 
-            ].
+            with: [ self renderContactsOn: html ].
+
+		html tbsForm: [
+			self renderAddButtonOn: html
+		].
 	]
 ]
 
@@ -118,17 +120,17 @@ WAContactBook >> renderRemoveButtonForContact: aContact on: html [
 
 { #category : #private }
 WAContactBook >> renderSearchFieldOn: html [
-	"--- Live Search Field ---"
-    html div class: 'search-box'; with: [
-        html textInput
-            id: 'search-input';
-            placeholder: 'Search by name or phone...';
-            value: searchKeyword;
-            onKeyUp: (html jQuery ajax
-                callback: [ :val | searchKeyword := val ]
-                    value: (html jQuery this value);
-                onSuccess: ((html jQuery id: 'contact-list') load
-                    html: [:r | self renderContactsOn: r]))].
+	html div class: 'search-box'; with: [
+		html textInput
+			tbsFormControl;
+			id: 'search-input';
+			placeholder: 'Search by name or email...';
+			value: searchKeyword;
+			onKeyUp: (html jQuery ajax
+				callback: [ :val | searchKeyword := val ]
+					value: ((html jQuery id: 'search-input') value);
+				onSuccess: ((html jQuery id: 'contact-list') load
+					html: [ :r | self renderContactsOn: r ])) ]
 ]
 
 { #category : #updating }
