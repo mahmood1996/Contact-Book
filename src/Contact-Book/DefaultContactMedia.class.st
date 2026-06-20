@@ -38,7 +38,7 @@ DefaultContactMedia class >> forFormattedContentUsing: contentBlock [
 
 { #category : #'instance creation' }
 DefaultContactMedia class >> forJSONContent [
-	"Creates an instance for formatting content as String".
+	"Creates an instance for formatting content as JSON".
 	
 	^ self forFormattedContentUsing: [
 		 :aName :anEmail :anAvatar |
